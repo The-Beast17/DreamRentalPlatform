@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
-<<<<<<< HEAD
 
-=======
->>>>>>> cce9246056440e088c79a5de3cb312a23a0da775
 const userSchema =  mongoose.Schema({
      userName : {
         type : String,
