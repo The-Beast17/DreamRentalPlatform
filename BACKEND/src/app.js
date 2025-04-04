@@ -4,12 +4,26 @@ const cors = require("cors");
 const app = express();
 const cookieParser = require("cookie-parser");
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://dreamrental-1-frontend.onrender.com"
+];
+
 const corsOptions = {
-    origin:"https://dreamrental-1-frontend.onrender.com", // deployed frontend
-    credentials: true, // Allow cookies and authorization headers
-  };
-  
+  origin: function (origin, callback) {
+    console.log("🚀 Request Origin:", origin); // For debugging
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // <-- this line handles preflight
+
 app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({extended:true}));
