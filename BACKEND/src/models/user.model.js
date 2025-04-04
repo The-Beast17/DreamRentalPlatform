@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { default: postcss } = require("postcss");
 
 const userSchema =  mongoose.Schema({
      userName : {
