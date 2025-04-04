@@ -168,7 +168,7 @@ const Home = () => {
           <div className="carousal">
             <div className='overlay'></div>
             <div className='slider'>
-              <img src="src\images\house-1477041_1280.jpg" alt="" />
+              <img src="FRONTEND\src\images\house-1477041_1280.jpg" alt="" />
             </div>
             <div className='slider'>
               <img src="FRONTEND\src\images\furniture-998265_960_720.jpg" alt="" />
@@ -218,19 +218,19 @@ const Home = () => {
                 <h1>Mumbai</h1>
               </div>
               <div className='card'>
-                <img src="src\images\pngtree-qutub-minara-tower-delhi-india-isolated-picture-image_13155736.png" />
+                <img src="FRONTEND\src\images\pngtree-qutub-minara-tower-delhi-india-isolated-picture-image_13155736.png" />
                 <h1>Delhi</h1>
               </div>
               <div className='card'>
-                <img src="src\images\hyderabad-charminar-png-1821.png" />
+                <img src="FRONTEND\src\images\hyderabad-charminar-png-1821.png" />
                 <h1>hyderabad</h1>
               </div>
               <div className='card'>
-                <img src="src\images\chennai-central.png" />
+                <img src="FRONTEND\src\images\chennai-central.png" />
                 <h1>Chennai</h1>
               </div>
               <div className='card'>
-                <img src="src\images\agra.png" />
+                <img src="FRONTEND\src\images\agra.png" />
                 <h1>Agra</h1>
               </div>
             </div>
@@ -241,19 +241,19 @@ const Home = () => {
                 <h1>Mumbai</h1>
               </div>
               <div className='card'>
-                <img src="src\images\pngtree-qutub-minara-tower-delhi-india-isolated-picture-image_13155736.png" />
+                <img src="FRONTEND\src\images\pngtree-qutub-minara-tower-delhi-india-isolated-picture-image_13155736.png" />
                 <h1>Delhi</h1>
               </div>
               <div className='card'>
-                <img src="src\images\hyderabad-charminar-png-1821.png" />
+                <img src="FRONTEND\src\images\hyderabad-charminar-png-1821.png" />
                 <h1>hyderabad</h1>
               </div>
               <div className='card'>
-                <img src="src\images\chennai-central.png" />
+                <img src="FRONTEND\src\images\chennai-central.png" />
                 <h1>Chennai</h1>
               </div>
               <div className='card'>
-                <img src="src\images\agra.png" />
+                <img src="FRONTEND\src\images\agra.png" />
                 <h1>Agra</h1>
               </div>
             </div>
@@ -272,7 +272,7 @@ const Home = () => {
             </div>
             <div className='right'>
               <div className='img-box'>
-                <img src="src\images\JW_LosCabos_2015_MainExterior.webp" />
+                <img src="FRONTEND\src\images\JW_LosCabos_2015_MainExterior.webp" />
                 <h1>At your place <sup>Mumbai</sup></h1>
                 <div className='source'>
                   <p>perfect stay for you</p>
@@ -305,19 +305,19 @@ const Home = () => {
             {/* *******card 1 */}
             <div className='card'>
               <div className='img-box'>
-                <img src='src\images\photo-1512917774080-9991f1c4c750.avif'></img>
+                <img src='FRONTEND\src\images\photo-1512917774080-9991f1c4c750.avif'></img>
                 <button>Residential</button>
               </div>
               <h1>The Qween Inside - Type 3</h1>
 
               <div className='facility'>
                 <div className='items'>
-                  <img src='src\images\39-512.webp' />
+                  <img src='FRONTEND\src\images\39-512.webp' />
                   <p>2</p>
                 </div>
 
                 <div className='items'>
-                  <img src='src\images\bathroom-icon-png-15.jpg' />
+                  <img src='FRONTEND\src\images\bathroom-icon-png-15.jpg' />
                   <p>2</p>
                 </div>
 
@@ -335,19 +335,19 @@ const Home = () => {
             {/* *******card 2 */}
             <div className='card'>
               <div className='img-box'>
-                <img src='src\images\premium_photo-1711412119767-d0a4de960859.avif'></img>
+                <img src='FRONTEND\src\images\premium_photo-1711412119767-d0a4de960859.avif'></img>
                 <button>Comercial</button>
               </div>
               <h1>The Qween Inside - Type 3</h1>
 
               <div className='facility'>
                 <div className='items'>
-                  <img src='src\images\39-512.webp' />
+                  <img src='FRONTEND\src\images\39-512.webp' />
                   <p>2</p>
                 </div>
 
                 <div className='items'>
-                  <img src='src\images\bathroom-icon-png-15.jpg' />
+                  <img src='FRONTEND\src\images\bathroom-icon-png-15.jpg' />
                   <p>2</p>
                 </div>
 
@@ -365,19 +365,19 @@ const Home = () => {
             {/* *******card 3*/}
             <div className='card'>
               <div className='img-box'>
-                <img src='src\images\photo-1515263487990-61b07816b324.avif'></img>
+                <img src='FRONTEND\src\images\photo-1515263487990-61b07816b324.avif'></img>
                 <button>Apartment</button>
               </div>
               <h1>The Qween Inside - Type 3</h1>
 
               <div className='facility'>
                 <div className='items'>
-                  <img src='src\images\39-512.webp' />
+                  <img src='FRONTEND\src\images\39-512.webp' />
                   <p>2</p>
                 </div>
 
                 <div className='items'>
-                  <img src='src\images\bathroom-icon-png-15.jpg' />
+                  <img src='FRONTEND\src\images\bathroom-icon-png-15.jpg' />
                   <p>2</p>
                 </div>
 
