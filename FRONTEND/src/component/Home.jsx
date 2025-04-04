@@ -171,19 +171,19 @@ const Home = () => {
               <img src="src\images\house-1477041_1280.jpg" alt="" />
             </div>
             <div className='slider'>
-              <img src="src\images\furniture-998265_960_720.jpg" alt="" />
+              <img src="FRONTEND\src\images\furniture-998265_960_720.jpg" alt="" />
             </div>
             <div className='slider'>
-              <img src="src\images\building-4885295_640.jpg" alt="" />
+              <img src="FRONTEND\src\images\building-4885295_640.jpg" alt="" />
             </div>
             <div className='slider'>
-              <img src="src\images\house-1477041_1280.jpg" alt="" />
+              <img src="FRONTEND\src\images\house-1477041_1280.jpg" alt="" />
             </div>
             <div className='slider'>
-              <img src="src\images\furniture-998265_960_720.jpg" alt="" />
+              <img src="FRONTEND\src\images\furniture-998265_960_720.jpg" alt="" />
             </div>
             <div className='slider'>
-              <img src="src\images\building-4885295_640.jpg" alt="" />
+              <img src="FRONTEND\src\images\building-4885295_640.jpg" alt="" />
             </div>
           </div>
         </section>
