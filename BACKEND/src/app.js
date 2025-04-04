@@ -5,7 +5,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 
 const corsOptions = {
-    origin: 'http://localhost:5173', // Allow frontend URL
+   origin: ['http://localhost:5173', 'https://dreamrental-1-frontend.onrender.com']
     credentials: true, // Allow cookies and authorization headers
   };
   
