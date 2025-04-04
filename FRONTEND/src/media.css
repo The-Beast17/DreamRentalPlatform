@@ -1,0 +1,69 @@
+@media(max-width:600px){
+    nav ul , nav .acc{
+        display: none;
+    }
+
+    nav .menu{
+        display: initial;
+        font-size: 25px;
+    }
+
+    nav .menu:hover{
+      font-weight: 800;
+    }
+
+    /************signup/ login************************************************************/
+
+    .Signup-login-main .signup-form{
+        max-width : 80vw;
+    }
+    .signup-form h1{
+        font-size: 3vmax;
+    }
+    .signup-form .i-wrap input,.signup-form .gender,.signup-form .address{
+        font-size: 14px;
+    }
+
+
+
+    /***************HOME COMPONENT***********/
+    /******************page1***********/
+    .home-page  .page1{
+        padding-top : 20%;
+    }
+    .home-page .page1 .content .inner-content h1{
+        line-height: 1.3;
+    }
+
+    .home-page .page1 .content .inner-content .search-bar{
+        flex-direction: column;
+        align-items: center;
+    }
+    .home-page .page1 .content .inner-content form{
+        width : 80%;
+    } 
+    
+    /****************************************************/
+    .home-page .page2 .content{
+       flex-direction:column;
+       text-align: center;
+    }
+    .home-page .page2 .content .left{
+        width: 100%;
+    }
+    .home-page .page2 .content .left button{
+        margin: 30px auto;
+    }
+    .home-page .page2 .content .right{
+        width: 100%;
+    }
+    .home-page .page2 .content .right .img-box .source{
+        padding : 10px;
+    }
+    .home-page .page2 .content .right .img-box .source p{
+        font-size: 3vw;
+    }
+    .home-page .page2 .content .right .img-box .source button{
+        font-size: 3vw;
+    }
+}

@@ -1,0 +1,5 @@
+import axios from "axios";
+export const Axios = axios.create({
+    baseURL : "http://localhost:3000",
+    withCredentials: true // Enables sending cookies with requests
+})
