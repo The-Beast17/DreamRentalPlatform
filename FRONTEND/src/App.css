@@ -2,13 +2,14 @@ nav{
   padding : 15px 3%;
   width : 100%;
   background-color: rgb(192, 181, 181);
+  background-color: rgb(0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  border-bottom: 2px solid teal;
+  /* border-bottom: 2px solid teal; */
   z-index:100;
-  color: black;
+  color: white;
   transition: 0.5s linear;
   backdrop-filter: blur(20px);
 }

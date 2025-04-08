@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { use } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import {Axios} from '../axios/Axios';
+// import data from "../../../BACKEND/uploads/images"
 
 const Profile = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+    const [posts, setposts] = useState(null)
     const { userId } = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const response = await Axios.get(`/post/getPosts`);
+                console.log(response.data)
+                setposts(response.data);
+            }catch (error) {
+                console.error("Error fetching posts:", error);
+             }
+        }
+        fetchPost();
+    }, []);
 
     if (!user) {
         return <div className="text-center py-8">Loading...</div>;
     }
 
     return (
-        <div className="w-full  mx-auto md:px-10 px-3 sm:p-8 md:pt-24 bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="w-full  mx-auto md:px-10 px-3 sm:p-8 md:pt-24 pt-24 bg-[#effcfc] rounded-2xl shadow-xl overflow-hidden">
             <div className="flex flex-col sm:flex-row items-center sm:justify-between mb-8 bg-zinc-900 md:p-10">
                 <div className="flex flex-col sm:flex-row items-center p-5 pt-24 sm:pt-0 md:gap-5 ">
                     <img
@@ -32,27 +49,30 @@ const Profile = () => {
 
             <div className="mb-8">
                 <h3 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">About Me</h3>
+                <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors mb-4">Add bio</button>
                 <p className="text-gray-700 leading-relaxed">{user.bio}</p>
             </div>
 
             <div className='w-full text-center mb-8'>
                 <Link to={'/CreatePost'}
-                    className='py-2 px-4 text-bold bg-teal-600  text-white rounded mx-auto'>ADD PROPERTY</Link>
+                    className='py-2 px-4 text-bold bg-teal-600 hover:bg-teal-700 duration-200 text-white rounded mx-auto'>ADD PROPERTY</Link>
             </div>
 
             <div className="mb-8 ">
                 <h3 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Properties Listed</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
-                    <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                        <img src={"/"} alt={""} className="w-full h-48 object-cover" />
-                        <div className="p-4">
-                            <h4 className="text-lg font-semibold text-gray-800">{"property.title"}</h4>
-                            <p className="text-gray-600">{"property.location"}</p>
-                            <p className="text-indigo-600 font-medium mt-2">{"property.price"}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
+                    {posts && posts.map((property) => (
+                        <div key={property._id}
+                         className="bg-gray-50 cursor-pointer rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                         onClick={()=>navigate(`/PropertyDetail/${property._id}`)}>
+                            <img src={`http://localhost:5000${property.images[0]}`} alt={property.title} className="w-full h-80 object-cover" />
+                            <div className="p-4">
+                                <h4 className="text-lg font-semibold text-gray-800">{property.title}</h4>
+                                <p className="text-gray-600">{property.location}</p>
+                                <p className="text-indigo-600 font-medium mt-2">₹{property.price}</p>
+                            </div>
                         </div>
-                    </div>
-
+                    ))}
                 </div>
             </div>
 

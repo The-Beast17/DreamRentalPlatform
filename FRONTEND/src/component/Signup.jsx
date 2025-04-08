@@ -8,6 +8,7 @@ import {Axios} from '../axios/Axios';
 const Signup = ({setIsAuthenticated}) => {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const [backendError, setbackendError] = useState('')
 
     const submitHandler = async(data) => {
         console.log(data);
@@ -19,6 +20,7 @@ const Signup = ({setIsAuthenticated}) => {
         navigate('/Properties');
         }catch(err){
             console.log(err.response.data.message)
+            setbackendError(err.response.data.message)
         }
     }
 
@@ -54,7 +56,7 @@ const Signup = ({setIsAuthenticated}) => {
                         />
                     </div>
                     {errors.email && <p className='e-msg'>{errors.email.message}</p>}
-
+                    {backendError && <p className='e-msg'>{backendError}</p>}
 
 
                     <div className={`i-wrap`}>
@@ -67,18 +69,39 @@ const Signup = ({setIsAuthenticated}) => {
                         />
                     </div>
                     {errors.password && <p className='e-msg'>{errors.password.message}</p>}
+                
 
+                <div className='flex gap-4'>
 
-                    <div className={`i-wrap`}>
-                        <i className="ri-phone-fill"></i>
+                    <div className={`i-wrap w-[87px]`}>
+                    <i className="ri-phone-fill"></i>
+                        <select {...register("countryCode", {
+                            required: { value: true, message: "please select your country code" },
+                        })}
+                        className='outline-none border-none'>
+                            <option value="+91">+91</option>
+                            <option value="+1">+1</option>
+                            <option value="+44">+44</option>
+                            <option value="+61">+61</option>
+                            <option value="+81">+81</option>
+                        </select>
+                    </div>
+                   
+                    <div className={`i-wrap w-full`}>
+                        {/* <i className="ri-phone-fill"></i> */}
                         <input type="number" placeholder="Mobile number"
                             {...register("mobileNumber", {
                                 required: { value: true, message: "please Enter your mobile number" },
-                                maxLength: { value: 12, message: "minimum length is : 12" }
+                                maxLength: { value: 10, message: "minimum length is : 10" },
+                                minLength: { value: 10, message: "minimum length is : 10" },
+                                pattern: { value: /^[0-9]{10}$/, message: "please enter a valid mobile number" }
                             })}
+                            pattern={/^[0-9]{10}$/}
                         />
                     </div>
-                    {errors.mobileNumber && <p className='e-msg'>{errors.mobileNumber.message}</p>}
+                </div>
+                {errors.countryCode && <p className='e-msg'>{errors.countryCode.message}</p>}
+                {errors.mobileNumber && <p className='e-msg'>{errors.mobileNumber.message}</p>}
 
 
                     <div className='gender'>

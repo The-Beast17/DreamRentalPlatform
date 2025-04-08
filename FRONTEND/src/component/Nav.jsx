@@ -29,7 +29,7 @@ const Nav = ({ wheel, setIsAuthenticated, IsAuthenticated }) => {
       }
     };
     isAuth();
-  }, []);
+  }, [IsAuthenticated]);
 
 
   /// Logout function
@@ -38,7 +38,7 @@ const Nav = ({ wheel, setIsAuthenticated, IsAuthenticated }) => {
     try {
       const response = await Axios.get('/user/logout');
       console.log(response.data)
-      // localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("token");
       setIsAuthenticated(false)
       setmenuShow(false);
       navigate('/');
@@ -57,14 +57,14 @@ const Nav = ({ wheel, setIsAuthenticated, IsAuthenticated }) => {
           <li><NavLink className='nav-item' style={(e) => e.isActive ? { color: "teal", borderBottom: "2px solid teal" } : {}} to="/">Home</NavLink></li>
           <li><NavLink className='nav-item' style={(e) => e.isActive ? { color: "teal", borderBottom: "2px solid teal" } : {}} to="/Properties">Properties</NavLink></li>
           <li><NavLink className='nav-item' style={(e) => e.isActive ? { color: "teal", borderBottom: "2px solid teal" } : {}} to="/About">About</NavLink></li>
-          <li><NavLink className='nav-item' style={(e) => e.isActive ? { color: "teal", borderBottom: "2px solid teal" } : {}} to="/Pages">Pages</NavLink></li>
+          <li><NavLink className='nav-item' style={(e) => e.isActive ? { color: "teal", borderBottom: "2px solid teal" } : {}} to="/Cart">Cart</NavLink></li>
           <li><NavLink className='nav-item' style={(e) => e.isActive ? { color: "teal", borderBottom: "2px solid teal" } : {}} to="/Contact">Contact</NavLink></li>
         </ul>
 
 
         {IsAuthenticated && userData ?
-          <div className='hidden md:flex gap-3'>
-            <div className='profile items-center gap-3 flex' onClick={() => { navigate('/Profile') }}>
+          <div className='hidden md:flex gap-5 '>
+            <div className='profile items-center gap-3 flex hover:text-green-800 hover:bg-gray-300 hover:font-semibold duration-300 px-3 rounded-[25px] py-1 cursor-pointer' onClick={() => { navigate('/Profile') }}>
               <img src="https://www.pngkey.com/png/full/115-1150152_default-profile-picture-avatar-png-green.png"
                 className='profile-img h-8 w-8 rounded-full border border-zinc-500' />
               <span>{userData.userName}</span>
@@ -93,17 +93,17 @@ const Nav = ({ wheel, setIsAuthenticated, IsAuthenticated }) => {
 
 
           {IsAuthenticated && userData &&
-            <div className='profile items-center gap-3 flex bg-zinc-500 px-5 py-3' onClick={() => { navigate('/Profile') }}>
-              <img src="https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            <div className='profile items-center gap-3 flex bg-zinc-500 px-5 py-3 hover:bg-zinc-700 cursor-pointer ' onClick={() => { navigate('/Profile') , setmenuShow(!menuShow) }}>
+              <img src="https://www.pngkey.com/png/full/115-1150152_default-profile-picture-avatar-png-green.png"
                 className='profile-img h-8 w-8 rounded-full' />
-              <span>{userData.userName}</span>
+              <span className='hover:text-green-400'>{userData.userName}</span>
             </div>}
 
           <ul className='w-full flex flex-col gap-4 p-5  items-center'>
             <NavLink className='list-item text-white text-lg w-full py-2 px-5 hover:bg-zinc-500' style={(e) => e.isActive ? { color: "teal", backgroundColor: "white", borderBottom: "2px solid teal" } : {}} onClick={() => setmenuShow(!menuShow)} to="/">Home</NavLink>
             <NavLink className='list-item text-white text-lg w-full py-2 px-5 hover:bg-zinc-500' style={(e) => e.isActive ? { color: "teal", backgroundColor: "white", borderBottom: "2px solid teal" } : {}} onClick={() => setmenuShow(!menuShow)} to="/Properties">Properties</NavLink>
             <NavLink className='list-item text-white text-lg w-full py-2 px-5 hover:bg-zinc-500' style={(e) => e.isActive ? { color: "teal", backgroundColor: "white", borderBottom: "2px solid teal" } : {}} onClick={() => setmenuShow(!menuShow)} to="/About">About</NavLink>
-            <NavLink className='list-item text-white text-lg w-full py-2 px-5 hover:bg-zinc-500' style={(e) => e.isActive ? { color: "teal", backgroundColor: "white", borderBottom: "2px solid teal" } : {}} onClick={() => setmenuShow(!menuShow)} to="/Pages">Pages</NavLink>
+            <NavLink className='list-item text-white text-lg w-full py-2 px-5 hover:bg-zinc-500' style={(e) => e.isActive ? { color: "teal", backgroundColor: "white", borderBottom: "2px solid teal" } : {}} onClick={() => setmenuShow(!menuShow)} to="/Cart">Cart</NavLink>
             <NavLink className='list-item text-white text-lg w-full py-2 px-5 hover:bg-zinc-500' style={(e) => e.isActive ? { color: "teal", backgroundColor: "white", borderBottom: "2px solid teal" } : {}} onClick={() => setmenuShow(!menuShow)} to="/Contact">Contact</NavLink>
           </ul>
 

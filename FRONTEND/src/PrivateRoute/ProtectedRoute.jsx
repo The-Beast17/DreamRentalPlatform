@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
     useEffect(() => {
         const isAuth = async () => {
             try {
-                const response = await Axios.get('/user/verify');
+                const response = await Axios.get('/user/verify',{withCredentials:true});
                 console.log(response.data.authenticated);
                 setIsAuthenticated(response.data.authenticated);
             } catch (err) {

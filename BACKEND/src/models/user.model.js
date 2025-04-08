@@ -11,7 +11,7 @@ const userSchema =  mongoose.Schema({
         type : String,
      },
      mobileNumber : {
-        type : Number,
+        type : String,
      },
      gender:{
         type : String,
@@ -26,6 +26,12 @@ const userSchema =  mongoose.Schema({
         type : String,
         default : "FRONTEND/src/images/1000_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.jpg"
      },
+     posts:[
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "posts"
+        }
+    ]
 });
 
 const userModel  = mongoose.model("user" , userSchema);

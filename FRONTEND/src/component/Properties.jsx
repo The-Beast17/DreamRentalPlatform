@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { Axios } from '../axios/Axios';
 
 const Properties = () => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [posts, setposts] = useState(null)
 
   let arr = [1, 2, 3, 4, 4, 5, 5, 2, 3, 4, 5, 5, 56, 66]
   const [showFilters, setShowFilters] = React.useState(false);
@@ -10,6 +12,19 @@ const Properties = () => {
   const toggleFilters = () => {
     setShowFilters(!showFilters);
   };
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await Axios.get('/post/getAllPosts');
+        console.log(response.data);
+        setposts(response.data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    }
+    fetchPosts();
+  }, []);
 
   return (
     <div className='w-full bg-zinc-700 flex flex-col md:flex-row'>
@@ -96,34 +111,66 @@ const Properties = () => {
             {showFilters ? 'Hide Filters' : 'Apply Filters'}
           </button>
         }
-        {arr.map((property, index) => {
+
+        {posts && posts.map((property, index) => {
           return (
-            <div key={index} className='card w-full md:w-[20rem] h-auto md:h-[32rem] bg-white md:p-2 p-1 rounded mt-4 shadow-xl border'>
+            <div key={index} className='card w-full md:w-[20rem] h-auto  bg-white md:p-2 p-1 rounded mt-4 shadow-xl border'>
               <div className='img-box h-[17rem] w-full bg-black rounded overflow-hidden relative'>
-                <img src='https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&w=1770&q=80' className='h-full w-full object-cover object-center' />
-                <button className='absolute bottom-2 left-2 bg-white text-black px-4 py-1 rounded-[25px] z-30'>Apartment</button>
+                <img src={`http://localhost:5000${property.images[0]}`} className='h-full w-full object-cover object-center' />
+                <button className='absolute bottom-2 left-2 bg-white text-black px-4 py-1 rounded-[25px] z-30'>{property.propertyType}</button>
               </div>
               <div className='px-4'>
-                <h1 className='font-bold text-xl mt-4'>The Qween Inside - Type 3</h1>
+                <h1 className='font-bold text-xl mt-4 whitespace-nowrap overflow-hidden text-ellipsis'>{property.title}</h1>
                 <div className='facility flex justify-between mt-2'>
                   <div className='items flex items-center'>
-                    <img src='src/images/39-512.webp' className='h-6 w-6' />
-                    <p className='ml-2'>2</p>
+                    <img src='images/39-512.webp' className='h-6 w-6' />
+                    <p className='ml-2'>{property.bedrooms}</p>
                   </div>
                   <div className='items flex items-center'>
-                    <img src='src/images/bathroom-icon-png-15.jpg' className='h-6 w-6' />
-                    <p className='ml-2'>2</p>
+                    <img src='images/bathroom-icon-png-15.jpg' className='h-6 w-6' />
+                    <p className='ml-2'>{property.bathrooms}</p>
                   </div>
-                  <p className='flex items-center'><i className="ri-money-rupee-circle-line mr-1"></i> 41,684</p>
+                  <p className='flex items-center'><i className="ri-money-rupee-circle-line mr-1"></i> {property.price}</p>
                 </div>
-                <h2 className='mt-2 flex items-center'><i className="ri-map-pin-line mr-1"></i> Sliver Hiil Colony, Indore</h2>
-                <div  className='btn mt-4'>
-                  <button onClick={()=>navigate("/PropertyDetail")} className='bg-blue-500 text-white px-4 py-2 rounded w-full'>See Details <i className="ri-arrow-right-line ml-1"></i></button>
+                <h2 className='mt-4 flex items-center'>
+                  <i className="ri-map-pin-line mr-1"></i>
+                  <span className='truncate block w-full'>{property.location}</span>
+                </h2>
+
+                <div className='btn mt-4'>
+                  <button onClick={() => navigate(`/PropertyDetail/${property._id}`)} className='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded w-full mb-5'>See Details <i className="ri-arrow-right-line ml-1"></i></button>
                 </div>
               </div>
             </div>
           )
         })}
+
+        {/* ****************************************dummy************ */}
+        {/* <div className='card w-full md:w-[20rem] h-auto md:h-[32rem] bg-white md:p-2 p-1 rounded mt-4 shadow-xl border'>
+          <div className='img-box h-[17rem] w-full bg-black rounded overflow-hidden relative'>
+            <img src='https://images.unsplash.com/photo-1732870812739-bcd81a66468f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' className='h-full w-full object-cover object-center' />
+            <button className='absolute bottom-2 left-2 bg-white text-black px-4 py-1 rounded-[25px] z-30'>Apartment</button>
+          </div>
+          <div className='px-4'>
+            <h1 className='font-bold text-xl mt-4'>The Qween Inside - Type 3</h1>
+            <div className='facility flex justify-between mt-2'>
+              <div className='items flex items-center'>
+                <img src='images/39-512.webp' className='h-6 w-6' />
+                <p className='ml-2'>2</p>
+              </div>
+              <div className='items flex items-center'>
+                <img src='images/bathroom-icon-png-15.jpg' className='h-6 w-6' />
+                <p className='ml-2'>2</p>
+              </div>
+              <p className='flex items-center'><i className="ri-money-rupee-circle-line mr-1"></i> 41,684</p>
+            </div>
+            <h2 className='mt-2 flex items-center'><i className="ri-map-pin-line mr-1"></i> Sliver Hiil Colony, Indore</h2>
+            <div className='btn mt-4'>
+              <button onClick={() => navigate("/PropertyDetail")} className='bg-blue-500 text-white px-4 py-2 rounded w-full'>See Details <i className="ri-arrow-right-line ml-1"></i></button>
+            </div>
+          </div>
+        </div> */}
+        {/* ************************************************ */}
       </div>
     </div>
   )

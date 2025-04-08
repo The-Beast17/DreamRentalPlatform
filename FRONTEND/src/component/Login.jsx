@@ -10,10 +10,9 @@ const Login = ({setIsAuthenticated}) => {
         console.log(data)
         try{
         const response = await Axios.post("/user/login",data)
-        console.log(response.data);
+        console.log(response.data.token);
         reset();
         setIsAuthenticated(true);
-        // localStorage.setItem("isAuthenticated", true);
         navigate('/Properties');
         }catch(err){
             console.log(err.response.data.message)

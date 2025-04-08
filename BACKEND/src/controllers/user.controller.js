@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 //signup controller
 module.exports.signupUserController = async(req , res)=>{
-  const {userName , email , password , mobileNumber, gender , state , city} = req.body;
+  const {userName , email , password ,countryCode, mobileNumber, gender , state , city} = req.body;
   console.log(userName , email)
   const isUser = await userModel.findOne({
     email
@@ -18,7 +18,7 @@ module.exports.signupUserController = async(req , res)=>{
 
   const hashPassword = bcrypt.hashSync(password,10);
   const user = await userModel.create({
-    userName , email , password:hashPassword, mobileNumber , gender , state , city
+    userName , email , password:hashPassword, mobileNumber: `${countryCode} ${mobileNumber}` , gender , state , city
    });
 
    const token = jwt.sign({
@@ -26,7 +26,11 @@ module.exports.signupUserController = async(req , res)=>{
      email : user.email,
    },"dream-rental-secret-key");
 
-   res.cookie("token" , token);
+   res.cookie("token", token, {
+    httpOnly: true,
+    secure: false, // use true in production (HTTPS)
+    sameSite: "Lax", // or "None" if HTTPS + cross-site
+  });
 
    res.status(201).json({
     user : user,
@@ -55,7 +59,11 @@ module.exports.loginUserController = async (req , res)=>{
     email : user.email
   },"dream-rental-secret-key");
 
-  res.cookie("token" , token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: false, // use true in production (HTTPS)
+    sameSite: "Lax", // or "None" if HTTPS + cross-site
+  });
 
   res.status(201).json({
      user : user , token
@@ -99,3 +107,21 @@ module.exports.verifyUserController = async(req , res)=>{
         res.status(401).json({ authenticated: false , message : "User not authenticated" });
     }
 }
+
+// get user controller
+module.exports.getUserController = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  try {
+    const user = await userModel.findById(id).select("-password"); // -password means password ko nahi dikhana hai
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user", error });
+  }
+};
