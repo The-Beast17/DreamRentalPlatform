@@ -11,7 +11,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
 
-const allowedOrigins = [process.env.CLIENT_URL]; // add more if needed
+const allowedOrigins = ['https://dreamrentalplatform-frontend.onrender.com']; // add more if needed
 
 const corsOptions = {
   origin: function (origin, callback) {
