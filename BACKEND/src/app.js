@@ -12,7 +12,7 @@ dotenv.config({ path: "./.env" });
 
 
 
-const allowedOrigins = [process.env.CLIENT_URL]; // add more if needed
+const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000']; // Add localhost for local development
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -22,7 +22,7 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true, // VERY IMPORTANT for cookies
+  credentials: true, // Important for allowing cookies with requests
 };
 
 app.use(cors(corsOptions));

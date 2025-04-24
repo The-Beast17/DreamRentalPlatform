@@ -77,12 +77,11 @@ module.exports.loginAdminController = async (req, res) => {
         );
 
         // ✅ Secure Cookie Settings
-        res.cookie("token", token, {
+        res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production", // Only true in production
-            sameSite: "Strict",
-            maxAge: 60 * 60 * 1000, // 1 hour
-        });
+            secure: true,        // ⭐ very important on Render (uses https)
+            sameSite: 'None',    // ⭐ mandatory for cross-site cookies
+          });
 
         res.status(200).json({ message: "Login successful", token }); // token optional
     } catch (error) {
@@ -95,11 +94,18 @@ module.exports.loginAdminController = async (req, res) => {
 // admin verify **
 module.exports.verifyAdminController = async (req, res) => {
     try {
-        const token = req.cookies.token; // Assuming token is stored in cookies
-        
-        // If no token is found, return error
+        let token;
+
+        if (req.headers.authorization?.startsWith("Bearer ")) {
+          token = req.headers.authorization.split(" ")[1];
+        }
+      
+        if (!token && req.cookies?.token) {
+          token = req.cookies.token;
+        }
+      
         if (!token) {
-            return res.status(401).json({ authenticated: false, message: "No token provided" });
+          return res.status(401).json({ message: "Access denied. No token provided." });
         }
 
         // Verify the token with the secret key
