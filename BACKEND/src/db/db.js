@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./.env" });
 
 function connect(){
-    mongoose.connect("mongodb://localhost:27017/dream-rental")
+    mongoose.connect(process.env.MONGO_URI)
     .then(()=>{
         console.log("connected to db")
     }).catch(err=>{

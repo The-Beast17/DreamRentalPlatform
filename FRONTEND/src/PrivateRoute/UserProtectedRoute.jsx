@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { Axios } from '../axios/Axios';
 
-const ProtectedRoute = () => {
+const UserProtectedRoute = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(null); // State for auth status
     const [loading, setLoading] = useState(true); // State for loading
 
@@ -10,7 +10,6 @@ const ProtectedRoute = () => {
         const isAuth = async () => {
             try {
                 const response = await Axios.get('/user/verify',{withCredentials:true});
-                console.log(response.data.authenticated);
                 setIsAuthenticated(response.data.authenticated);
             } catch (err) {
                 console.error(err);
@@ -26,7 +25,7 @@ const ProtectedRoute = () => {
         return <div>Loading...</div>; // Show loading indicator while verifying
     }
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/Login" />;
+    return isAuthenticated ? <Outlet /> : <Navigate to="/Authentication" />;
 };
 
-export default ProtectedRoute;
+export default UserProtectedRoute;

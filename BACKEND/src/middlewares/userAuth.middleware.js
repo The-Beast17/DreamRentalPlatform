@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const dotenv = require("dotenv");
+dotenv.config({ path: "./.env" });
 
 module.exports.authUser = async (req , res , next)=>{
     try{
@@ -7,7 +9,7 @@ module.exports.authUser = async (req , res , next)=>{
           return  res.status(401).json({message : "User not authenticated"});
         }
     //jo bhi data token banete time pass kra tha wo yaha se decode hoke mil jayega
-    const decoded = jwt.verify(token , "dream-rental-secret-key");
+    const decoded = jwt.verify(token , process.env.JWT_SECRET_KEY);
     
     req.user = decoded;
     next();

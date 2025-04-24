@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Axios } from '../axios/Axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import statesAndCities from '../StatesAndCities.json';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CreatePost = () => {
+const EditProperty = () => {
     const navigate = useNavigate();
+    const { id } = useParams(); // Get the property ID from the route params
     const [title, settitle] = useState('');
     const [description, setdescription] = useState('');
     const [images, setimages] = useState([]);
     const [amenities, setamenities] = useState('');
     const [features, setfeatures] = useState('');
+    const [state, setstate] = useState('');
+    const [city, setcity] = useState("");
     const [location, setlocation] = useState('');
     const [price, setprice] = useState('');
     const [bedrooms, setbedrooms] = useState('');
@@ -19,10 +22,40 @@ const CreatePost = () => {
     const [propertyType, setPropertyType] = useState('');
     const [propertyDocImages, setpropertyDocImages] = useState([]);
     const [errorMessage, seterrorMessage] = useState("");
-    const [state, setstate] = useState('');
-    const [city, setcity] = useState("");
+    const [initialImages, setInitialImages] = useState([]); // To store existing image URLs
+    const [initialDocImages, setInitialDocImages] = useState([]); // To store existing doc URLs
     const [loading, setloading] = useState(false);
 
+    useEffect(() => {
+        const fetchPropertyDetails = async () => {
+            try {
+                const res = await Axios.get(`/properties/getProperty/${id}`, {
+                    withCredentials: true
+                });
+                const propertyData = res.data;
+                settitle(propertyData.title);
+                setdescription(propertyData.description);
+                setstate(propertyData.state);
+                setcity(propertyData.city);
+                setlocation(propertyData.location);
+                setPropertyType(propertyData.propertyType);
+                setbedrooms(propertyData.bedrooms);
+                setbathrooms(propertyData.bathrooms);
+                setprice(propertyData.price);
+                setamenities(propertyData.amenities);
+                setfeatures(propertyData.features);
+                setInitialImages(propertyData.propertyImages || []);
+                setInitialDocImages(propertyData.propertyDocImages || []);
+            } catch (err) {
+                console.error("Error fetching property details:", err);
+                typeof err.response?.data?.error === 'string' ?
+                    seterrorMessage(err.response.data.error) :
+                    seterrorMessage("Failed to load property details.");
+            }
+        };
+
+        fetchPropertyDetails();
+    }, [id]);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -39,57 +72,53 @@ const CreatePost = () => {
         formData.append("amenities", amenities);
         formData.append("features", features);
 
-        // Append each image file
+        // Append new image files
         for (let i = 0; i < images.length; i++) {
             formData.append("propertyImages", images[i]);
         }
 
+        // Append new document files
         for (let i = 0; i < propertyDocImages.length; i++) {
             formData.append("propertyDocImages", propertyDocImages[i]);
         }
 
-
         try {
             setloading(true);
-            const res = await Axios.post("/properties/createPost", formData, {
+            const res = await Axios.put(`/properties/updateProperty/${id}`, formData, {
                 withCredentials: true
             });
 
             const data = await res.data;
-            console.log("Post created:", data);
+            console.log("Property updated:", data);
+            toast.success("Property updated successfully!");
 
-            if (res.status === 201) {
-                settitle('');
-                setdescription('');
-                setimages([]);
-                setamenities('');
-                setfeatures('');
-                setlocation('');
-                setprice('');
-                setbedrooms('');
-                setbathrooms('');
-                setPropertyType('');
-                setstate('');
-                setcity('');
+            if (res.status === 200) {
+                navigate(-1); // Go back to the previous page
             }
-            navigate(-1);
-            toast.success("Property uploaded successfully!");
         } catch (err) {
-            console.log("Error uploading post:", err);
-            typeof err.response.data.error === 'string' ?
+            console.log("Error updating property:", err);
+            typeof err.response?.data?.error === 'string' ?
                 seterrorMessage(err.response.data.error) :
-                seterrorMessage(JSON.stringify(err.response.data.message))
-            console.log(err.response.data.message)
-        }finally {
+                seterrorMessage(JSON.stringify(err.response?.data?.message) || "Failed to update property.");
+            console.log(err.response?.data?.message);
+        } finally {
             setloading(false);
         }
-    }
+    };
+
+    const handleImageChange = (e) => {
+        setimages([...e.target.files]);
+    };
+
+    const handleDocImageChange = (e) => {
+        setpropertyDocImages([...e.target.files]);
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center py-12 sm:py-24 bg-gray-200">
             <div className="p-6 sm:p-10 bg-gray-100 rounded-lg shadow-md w-full max-w-4xl mx-auto">
                 <h2 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800 text-center">
-                    Upload Property Details
+                    Edit Property Details
                 </h2>
                 <form className="space-y-4" onSubmit={submitHandler}>
                     <div>
@@ -179,6 +208,7 @@ const CreatePost = () => {
                             </select>
                         </div>
                     </div>
+
                     <div className="flex space-x-4">
                         <div className="w-1/2">
                             <label
@@ -190,23 +220,25 @@ const CreatePost = () => {
                             <select
                                 value={state}
                                 name='State'
-                                onChange={(e) => {
-                                     setstate(e.target.value),
-                                     setcity("") // Reset city when state changes
-                                }}
+                                onChange={
+                                    (e) => {
+                                        setstate(e.target.value);
+                                        setcity("");
+                                    }
+                                }
                                 required
                                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             >
                                 <option value="">State</option>
-                               {Object.keys(statesAndCities).map((stateName, idx) => (
-                                                                  <option key={idx} value={stateName}>
-                                                                      {stateName}
-                                                                  </option>
-                                                              ))}
+                                {Object.keys(statesAndCities).map((stateName, idx) => (
+                                    <option key={idx} value={stateName}>
+                                        {stateName}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                         <div className="w-1/2">
-                        <label
+                            <label
                                 htmlFor="City"
                                 className="block text-sm font-medium text-gray-700"
                             >
@@ -226,15 +258,11 @@ const CreatePost = () => {
                                             {cityName}
                                         </option>
                                     ))}
-                                    {!state && <option value="">Select State First</option>}
+                                {!state && <option value="">Select State First</option>}
                             </select>
                         </div>
                     </div>
-                    {/* {(errors.city || errors.state) && (
-                <p className="text-red-500 text-sm mt-1 text-center">
-                    Please select both state and city
-                </p>
-            )} */}
+
                     <div>
                         <label
                             htmlFor="propertyLocation"
@@ -258,7 +286,7 @@ const CreatePost = () => {
                             htmlFor="propertyPrice"
                             className="block text-sm font-medium text-gray-700"
                         >
-                            Rent/per Mounth:
+                            Rent/mounth:
                         </label>
                         <input
                             type="number"
@@ -289,13 +317,27 @@ const CreatePost = () => {
                         ></textarea>
                     </div>
                     <div>
-                        {images.length > 0 && (
+                        {initialImages.length > 0 && (
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
-                                {images.map((img, idx) => (
+                                <p className="block text-sm font-medium text-gray-700 col-span-full">Existing Images:</p>
+                                {initialImages.map((imgUrl, idx) => (
                                     <img
                                         key={idx}
+                                        src={imgUrl.url}
+                                        alt={`existing-${idx}`}
+                                        className="h-32 w-full object-cover rounded-lg shadow-md"
+                                    />
+                                ))}
+                            </div>
+                        )}
+                        {images.length > 0 && (
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
+                                <p className="block text-sm font-medium text-gray-700 col-span-full">New Images Preview:</p>
+                                {images.map((img, idx) => (
+                                    <img
+                                        key={`new-${idx}`}
                                         src={URL.createObjectURL(img)}
-                                        alt="preview"
+                                        alt="new-preview"
                                         className="h-32 w-full object-cover rounded-lg shadow-md"
                                     />
                                 ))}
@@ -305,7 +347,7 @@ const CreatePost = () => {
                             htmlFor="propertyImages"
                             className="block text-sm font-medium text-gray-700"
                         >
-                            Upload Images:
+                            Upload New Images:
                         </label>
                         <input
                             type="file"
@@ -313,10 +355,12 @@ const CreatePost = () => {
                             name="propertyImages"
                             multiple
                             accept="image/*"
-                            required
-                            onChange={(e) => setimages([...e.target.files])}
+                            onChange={handleImageChange}
                             className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                         />
+                        <p className="text-xs text-gray-500 mt-1">
+                            You can upload new images to add or replace existing ones.
+                        </p>
                     </div>
                     <div>
                         <label
@@ -351,15 +395,19 @@ const CreatePost = () => {
                         ></textarea>
                     </div>
                     <div>
-                        {propertyDocImages.length > 0 && (
+                        {initialDocImages.length > 0 && (
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
-                                {propertyDocImages.map((img, idx) => (
-                                    <img
+                                <p className="block text-sm font-medium text-gray-700 col-span-full">Existing Documents:</p>
+                                {initialDocImages.map((docUrl, idx) => (
+                                    <a
                                         key={idx}
-                                        src={URL.createObjectURL(img)}
-                                        alt="preview"
-                                        className="h-32 w-full object-cover rounded-lg shadow-md"
-                                    />
+                                        href={docUrl.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-500 hover:underline"
+                                    >
+                                        Document {idx + 1}
+                                    </a>
                                 ))}
                             </div>
                         )}
@@ -367,7 +415,7 @@ const CreatePost = () => {
                             htmlFor="propertyDocuments"
                             className="block text-sm font-medium text-gray-700"
                         >
-                            Upload Property Documents:
+                            Upload New Property Documents:
                         </label>
                         <input
                             type="file"
@@ -375,12 +423,11 @@ const CreatePost = () => {
                             name="propertyDocuments"
                             multiple
                             accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                            required
-                            onChange={(e) => setpropertyDocImages([...e.target.files])}
+                            onChange={handleDocImageChange}
                             className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                         />
                         <p className="text-xs text-gray-500 mt-1">
-                            Upload property-related documents (e.g., ownership proof, rental agreement, tax receipts, Electricity bill etc.)
+                            Upload new or updated property-related documents.
                         </p>
                     </div>
                     {errorMessage &&
@@ -388,16 +435,16 @@ const CreatePost = () => {
                     }
                     <button
                         type="submit"
-                        className="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center"
                         disabled={loading}
+                        className="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center"
                     >
-                       {loading ? (
+                        {loading ? (
                             <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                             </svg>
                         ) : null}
-                        {loading ? 'Submitting...' : 'Submit'}
+                        {loading ? 'Updating...' : 'Update Property'}
                     </button>
                 </form>
             </div>
@@ -405,4 +452,4 @@ const CreatePost = () => {
     );
 };
 
-export default CreatePost;
+export default EditProperty;

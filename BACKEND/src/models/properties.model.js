@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const postSchema = new mongoose.Schema({
+const propertySchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -9,15 +9,23 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    images: {
-        type: [String],
-        required: true
-    },
+    propertyImages: [{
+        url: { type: String, required: true },
+        public_id: { type: String, required: true }
+    }],
     location: {
         type: String,
         required: true
     },
-    propertyType:{
+    state: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    propertyType: {
         type: String,
         required: true
     },
@@ -41,16 +49,31 @@ const postSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
+    propertyDocImages: [{
+        url: { type: String, required: true },
+        public_id: { type: String, required: true }
+    }],
     createdAt: {
         type: Date,
         default: Date.now
     },
-    author : {
+
+    status: {
+        type: String,
+        enum: ["verified", "pending", "rejected"],
+        default: "pending",
+    },
+    availability: {
+        type: Boolean,
+        default: true, // true for available, false for unavailable
+    },
+
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     }
 });
 
-const postModel = mongoose.model("post", postSchema);
+const propertyModel = mongoose.model("properties", propertySchema);
 
-module.exports = postModel;
+module.exports = propertyModel;

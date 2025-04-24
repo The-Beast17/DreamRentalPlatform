@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
   const navigate = useNavigate();
+
   useEffect(() => {
     const t1 = gsap.timeline();
 
@@ -160,8 +161,15 @@ const Home = () => {
     })
 
 
-  }, [])
+  }, []);
 
+  const [homeSearchTerm, setHomeSearchTerm] = useState("");
+
+  const handleSearch = () => {
+    if (homeSearchTerm.trim() && homeSearchTerm.length > 0) {
+      navigate(`/properties?search=${encodeURIComponent(homeSearchTerm.trim())}`);
+    }
+  };
 
   return (
     <>
@@ -214,16 +222,32 @@ const Home = () => {
         <section className='page1'>
           <div className='content'>
             <div className='inner-content'>
-              <h1>Happiness per <br /> <span>Squar<span className='s-2'>e</span></span>  feet</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-800 font-montserrat">
+                <span className="text-yellow-600">Explore</span>
+                <span className=""> Cities.</span>
+                <br />
+                <span className="">Explore</span>
+                <span className="text-teal-700"> Comfort.</span>
+              </h1>
+
               {/* Browse thousands of properties for rent in your city */}
               <p>Search Confidently with your trusted source of homes for sale and rent.</p>
 
               <div className='search-bar'>
-                <form>
-                  <input type="text" placeholder='Search' />
-                  <i className="ri-search-2-line"></i>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  navigate('/properties', { state: { search: homeSearchTerm } });
+                }}>
+                  <input
+                    type="text"
+                    placeholder="Search on location, city, or property name"
+                    value={homeSearchTerm}
+                    onChange={(e) => setHomeSearchTerm(e.target.value)}
+                  />
+                  <button onClick={handleSearch} className="btn-class"> <i className="ri-search-2-line"></i></button>
+
                 </form>
-                <button onClick={()=>navigate("/Properties")}>Get Started <i className="ri-arrow-right-line"></i></button>
+                <button className='getStarted-btn' onClick={() => navigate("/Properties")}>Get Started <i className="ri-arrow-right-line"></i></button>
               </div>
             </div>
           </div>
@@ -281,15 +305,11 @@ const Home = () => {
           </div>
 
 
-
-
           <div className='content'>
             <div className='left'>
               <h1 className='head'>Find your home <br />That <span>Suits</span> you</h1>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus tempora provident
-                perspiciatis fuga ab quaerat doloribus vero numquam.
-                Mollitia autem corrupti dicta quia rem atque ex iusto quos delectus incidunt!</p>
-              <button onClick={()=>navigate("/about")}>Know more <i className="ri-arrow-right-line"></i></button>
+              <p>Explore a wide range of verified rental properties tailored to your lifestyle. Whether you're a student, a working professional, or a family — we help you find the perfect place with ease and trust.</p>
+              <button onClick={() => navigate("/about")}>Know more <i className="ri-arrow-right-line"></i></button>
             </div>
             <div className='right'>
               <div className='img-box'>
@@ -300,126 +320,170 @@ const Home = () => {
                 <h1>At your place <sup>Mumbai</sup></h1>
                 <div className='source'>
                   <p>perfect stay for you</p>
-                  <button className=''> Book Now <i className="ri-arrow-right-line"></i> </button>
+                  <button onClick={() => navigate("/Properties")}> Book Now <i className="ri-arrow-right-line"></i> </button>
                 </div>
               </div>
             </div>
           </div>
         </section>
+
         {/* /*************************************page3*************** */}
-        <section className='page3'>
-          <div className='popularProperty'>
-            <h1>popular Property</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing <br />
-              elit. Similique ipsa ut eligendi assumenda totam. Esse. <br />
-              dolor sit amet consectetur adipisicing elit. Similique <br /> ipsa ut eligendi</p>
+        <section className="page3 bg-black text-white w-full p-[3%]">
+          <div className="popularProperty w-full flex flex-col md:flex-row justify-center items-center gap-8 md:gap-[20%] pt-[3%]">
+            <h1 className="text-3xl md:text-[3vmax] capitalize">popular Property</h1>
+            <p className="text-center max-w-md">
+              Discover our most viewed and highly rated properties, curated for quality living and investment. Handpicked by our team based on popularity and tenant satisfaction.
+            </p>
           </div>
 
-          <div className='property-Type'>
-            <div className='btns'>
-              <button>Residential</button>
-              <button>Commercial</button>
-              <button>Apartment</button>
+          <div className='property-Type w-full mt-[8%] flex flex-col md:flex-row justify-between items-center gap-4 px-[5%] md:px-[10%]'>
+            <div className='btns flex flex-wrap justify-center gap-2 md:gap-4'>
+              <button className='bg-white text-black px-5 py-4 text-xl font-semibold'>Residential</button>
+              <button className='bg-white text-black px-5 py-4 text-xl font-semibold'>Commercial</button>
+              <button className='bg-white text-black px-5 py-4 text-xl font-semibold'>Apartment</button>
             </div>
 
-            <button onClick={()=>navigate('/Properties')}>Explore List</button>
+            <button
+              onClick={() => navigate('/Properties')}
+              className="explore-btn px-5 py-4 bg-black text-white border-2 border-gray-500 hover:bg-teal-500 hover:text-white "
+            >
+              Explore List
+            </button>
           </div>
 
-          <div className='card-container'>
+
+          <div className="card-container w-full pt-12 md:pt-[10%] flex flex-col md:flex-row justify-center items-center flex-wrap gap-8 md:gap-[5%]">
             {/* *******card 1 */}
-            <div className='card'>
-              <div className='img-box'>
-                <img src='images\photo-1512917774080-9991f1c4c750.avif'></img>
-                <button>Residential</button>
+            <div className="card bg-white h-auto md:h-[60vh] w-full sm:w-[80%] md:w-[23vw] text-black m-2">
+              <div className="img-box h-[200px] md:h-[55%] w-full relative">
+                <img
+                  src="images/photo-1512917774080-9991f1c4c750.avif"
+                  className="h-full w-full object-cover object-center"
+                />
+                <button className="absolute bottom-[10px] left-[5px] px-[13px] py-[8px] text-xs font-medium rounded-[25px] bg-white">
+                  Residential
+                </button>
               </div>
-              <h1>The Qween Inside - Type 3</h1>
+              <h1 className="text-xl md:text-[22px] px-5 py-3 font-semibold">4Bhk Apartment</h1>
 
-              <div className='facility'>
-                <div className='items'>
-                  <img src='images\39-512.webp' />
+              <div className="facility px-5 py-3 flex justify-between text-gray-500">
+                <div className="items flex gap-[15px]">
+                  <img src="images/39-512.webp" className="h-5" />
+                  <p className="tracking-[2px]">4</p>
                 </div>
 
-                <div className='items'>
-
-                  <img src='..\images\bathroom-icon-png-15.jpg' />
-                  <p>2</p>
+                <div className="items flex gap-[15px]">
+                  <img src="images/bathroom-icon-png-15.jpg" className="h-5" />
+                  <p className="tracking-[2px]">2</p>
                 </div>
 
-                <p><i className="ri-money-rupee-circle-line"></i> 41,684</p>
-
+                <p className="flex items-center">
+                  <i className="ri-money-rupee-circle-line text-xl"></i> 22,000
+                </p>
               </div>
 
-              <h2><i className="ri-map-pin-line"> </i> Sliver Hiil Colony , Indore</h2>
+              <h2 className="px-5 py-0 text-gray-500">
+                <i className="ri-map-pin-line"></i> Indrapuri Bhel Road , Jabalpur
+              </h2>
 
-              <div className='btn'>
-                <button>See All  <i className="ri-arrow-right-line"></i></button>
+              <div className="btn text-center pt-6 pb-4">
+                <button className="text-xl font-semibold text-sky-300 hover:text-cyan-600 transition-[0.25s]"
+                  onClick={() => {
+                    navigate('/properties', { state: { search: "Jabalpur" } });
+                  }}
+                >
+                  See All <i className="ri-arrow-right-line"></i>
+                </button>
               </div>
             </div>
 
             {/* *******card 2 */}
-            <div className='card'>
-              <div className='img-box'>
-                <img src='images\premium_photo-1711412119767-d0a4de960859.avif'></img>
-                <button>Comercial</button>
+            <div className="card bg-white h-auto md:h-[60vh] w-full sm:w-[80%] md:w-[23vw] text-black m-2">
+              <div className="img-box h-[200px] md:h-[55%] w-full relative">
+                <img
+                  src="images/premium_photo-1711412119767-d0a4de960859.avif"
+                  className="h-full w-full object-cover object-center"
+                />
+                <button className="absolute bottom-[10px] left-[5px] px-[13px] py-[8px] text-xs font-medium rounded-[25px] bg-white">
+                  Comercial
+                </button>
               </div>
-              <h1>The Qween Inside - Type 3</h1>
+              <h1 className="text-xl md:text-[22px] px-5 py-3 font-semibold">3BHK FLAT Available</h1>
 
-              <div className='facility'>
-                <div className='items'>
-
-                  <img src='images\39-512.webp' />
-                  <p>2</p>
+              <div className="facility px-5 py-3 flex justify-between text-gray-500">
+                <div className="items flex gap-[15px]">
+                  <img src="images/39-512.webp" className="h-5" />
+                  <p className="tracking-[2px]">3</p>
                 </div>
 
-                <div className='items'>
-                  <img src='images\bathroom-icon-png-15.jpg' />
-                  <p>2</p>
+                <div className="items flex gap-[15px]">
+                  <img src="images/bathroom-icon-png-15.jpg" className="h-5" />
+                  <p className="tracking-[2px]">2</p>
                 </div>
 
-                <p><i className="ri-money-rupee-circle-line"></i> 41,684</p>
-
+                <p className="flex items-center">
+                  <i className="ri-money-rupee-circle-line text-xl"></i> 14,684
+                </p>
               </div>
 
-              <h2><i className="ri-map-pin-line"> </i> Sliver Hiil Colony , Indore</h2>
+              <h2 className="px-5 py-0 text-gray-500">
+                <i className="ri-map-pin-line"></i> 127, Ashoka Garden, Bhopal
+              </h2>
 
-              <div className='btn'>
-                <button>See All  <i className="ri-arrow-right-line"></i></button>
+              <div className="btn text-center pt-6 pb-4">
+                <button className="text-xl font-semibold text-sky-300 hover:text-cyan-600 transition-[0.25s]"
+                  onClick={() => {
+                    navigate('/properties', { state: { search: "bhopal" } });
+                  }}
+                >
+                  See All <i className="ri-arrow-right-line"></i>
+                </button>
               </div>
             </div>
 
             {/* *******card 3*/}
-            <div className='card'>
-              <div className='img-box'>
-
-                <img src='images\photo-1515263487990-61b07816b324.avif'></img>
-                <button>Apartment</button>
+            <div className="card bg-white h-auto md:h-[60vh] w-full sm:w-[80%] md:w-[23vw] text-black m-2">
+              <div className="img-box h-[200px] md:h-[55%] w-full relative">
+                <img
+                  src="images/photo-1515263487990-61b07816b324.avif"
+                  className="h-full w-full object-cover object-center"
+                />
+                <button className="absolute bottom-[10px] left-[5px] px-[13px] py-[8px] text-xs font-medium rounded-[25px] bg-white">
+                  Apartment
+                </button>
               </div>
-              <h1>The Qween Inside - Type 3</h1>
+              <h1 className="text-xl md:text-[22px] px-5 py-3 font-semibold">The Qween Inside - Type 3</h1>
 
-              <div className='facility'>
-                <div className='items'>
-
-                  <img src='images\39-512.webp' />
-                  <p>2</p>
+              <div className="facility px-5 py-3 flex justify-between text-gray-500">
+                <div className="items flex gap-[15px]">
+                  <img src="images/39-512.webp" className="h-5" />
+                  <p className="tracking-[2px]">3</p>
                 </div>
 
-                <div className='items'>
-                  <img src='images\bathroom-icon-png-15.jpg' />
-                  <p>2</p>
+                <div className="items flex gap-[15px]">
+                  <img src="images/bathroom-icon-png-15.jpg" className="h-5" />
+                  <p className="tracking-[2px]">2</p>
                 </div>
 
-                <p><i className="ri-money-rupee-circle-line"></i> 41,684</p>
-
+                <p className="flex items-center">
+                  <i className="ri-money-rupee-circle-line text-xl"></i> 25,600
+                </p>
               </div>
 
-              <h2><i className="ri-map-pin-line"> </i> Sliver Hiil Colony , Indore</h2>
+              <h2 className="px-5 py-0 text-gray-500">
+                <i className="ri-map-pin-line"></i>D-9 Geta Bhawan , Indore
+              </h2>
 
-              <div className='btn'>
-                <button>See All  <i className="ri-arrow-right-line"></i></button>
+              <div className="btn text-center pt-6 pb-4">
+                <button className="text-xl font-semibold text-sky-300 hover:text-cyan-600 transition-[0.25s]"
+                  onClick={() => {
+                    navigate('/properties', { state: { search: "Indore" } });
+                  }}>
+                  See All <i className="ri-arrow-right-line"></i>
+                </button>
               </div>
             </div>
           </div>
-
         </section>
       </main>
     </>
