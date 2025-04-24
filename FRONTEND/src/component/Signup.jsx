@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import statesAndCities from '../StatesAndCities.json'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaHome } from 'react-icons/fa';
 
 
 
@@ -15,6 +16,7 @@ const Signup = () => {
     const [images, setImages] = useState([]);
     const { role } = useParams();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         register,
@@ -56,6 +58,7 @@ const Signup = () => {
 
     const submitHandler = async (data) => {
         try {
+            setIsLoading(true);
             const formData = new FormData();
             Object.keys(data).forEach((key) => {
                 formData.append(key, data[key]);
@@ -79,12 +82,37 @@ const Signup = () => {
             console.error('Signup error:', err);  // safer log
             const message = err?.response?.data?.message || 'Something went wrong. Please try again.';
             setBackendError(message);
+        }finally {
+            setIsLoading(false);
         }
     };
 
     const handleImageChange = (e) => {
         setImages([...e.target.files]);
     };
+
+
+    if (isLoading) {
+            return (
+                <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+                    <div className="relative w-28 h-28">
+                        {/* Background spinner */}
+                        <div className="absolute top-0 left-0 w-full h-full rounded-full border-[6px] border-t-blue-500 border-r-transparent border-b-blue-300 border-l-transparent animate-spin"></div>
+    
+                        {/* Centered Icon */}
+                        <div className="absolute inset-0 flex items-center justify-center text-green-500">
+                            <FaHome className="w-12 h-12 drop-shadow-md" />
+                        </div>
+    
+                        {/* Loading Text */}
+                        <div className="absolute bottom-[-50px] left-1/2 -translate-x-1/2 text-gray-800 font-medium text-base tracking-wide animate-pulse whitespace-nowrap">
+                            Please wait...
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
 
     const renderStepOne = () => (
         <div className="space-y-4">
