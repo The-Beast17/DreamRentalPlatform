@@ -57,10 +57,10 @@ module.exports.signupUserController = async (req, res) => {
     email: user.email,
   }, process.env.JWT_SECRET_KEY);
 
-  res.cookie("token", token, {
+  res.cookie('token', token, {
     httpOnly: true,
-    secure: false, // use true in production (HTTPS)
-    sameSite: "Lax", // or "None" if HTTPS + cross-site
+    secure: true,        // ⭐ very important on Render (uses https)
+    sameSite: 'None',    // ⭐ mandatory for cross-site cookies
   });
 
   res.status(201).json({
@@ -96,10 +96,10 @@ module.exports.loginUserController = async (req, res) => {
     email: user.email
   }, process.env.JWT_SECRET_KEY);
 
-  res.cookie("token", token, {
+  res.cookie('token', token, {
     httpOnly: true,
-    secure: false, // use true in production (HTTPS)
-    sameSite: "Lax", // or "None" if HTTPS + cross-site
+    secure: true,        // ⭐ very important on Render (uses https)
+    sameSite: 'None',    // ⭐ mandatory for cross-site cookies
   });
 
   res.status(201).json({
