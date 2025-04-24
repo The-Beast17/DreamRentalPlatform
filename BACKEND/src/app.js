@@ -11,6 +11,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
 
+
 const allowedOrigins = [process.env.CLIENT_URL]; // add more if needed
 
 const corsOptions = {
@@ -26,6 +27,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // Preflight
+
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
