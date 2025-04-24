@@ -11,21 +11,15 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
 
-const allowedOrigins = ['https://dreamrentalplatform-frontend.onrender.com']; // add more if needed
-
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, // VERY IMPORTANT for cookies
+  origin: [
+    "http://localhost:5173",
+    "https://dreamrentalplatform-frontend.onrender.com"
+  ],
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Preflight
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
