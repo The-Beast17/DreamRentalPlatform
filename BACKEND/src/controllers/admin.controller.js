@@ -96,26 +96,36 @@ module.exports.loginAdminController = async (req, res) => {
 module.exports.verifyAdminController = async (req, res) => {
     try {
         const token = req.cookies.token; // Assuming token is stored in cookies
+        
+        // If no token is found, return error
         if (!token) {
             return res.status(401).json({ authenticated: false, message: "No token provided" });
         }
 
-        jwt.verify(token,  process.env.JWT_SECRET_KEY, async (err, decoded) => {
+        // Verify the token with the secret key
+        jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
             if (err) {
-                return res.status(401).json({ authenticated: false, message: "Invalid token" });
+                // Handle token verification errors (invalid or expired token)
+                console.error('JWT Error:', err); // Log for debugging
+                return res.status(401).json({ authenticated: false, message: "Invalid or expired token" });
             }
+
+            // Look for the admin in the database using the decoded ID
             const admin = await adminModel.findById(decoded.id);
             if (!admin) {
+                // If no admin is found, return error
                 return res.status(404).json({ authenticated: false, message: "Admin not found" });
             }
 
+            // If everything is fine, return the admin details
             res.status(200).json({ authenticated: true, admin });
         });
     } catch (error) {
+        // Catch any server errors and respond
+        console.error('Server Error:', error); // Log the error for debugging
         res.status(500).json({ authenticated: false, message: "Internal server error", error });
     }
 };
-
 
 /*logout admin */
 module.exports.logoutAdminController = async (req, res) => {
