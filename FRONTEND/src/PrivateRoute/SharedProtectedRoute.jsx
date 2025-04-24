@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import axios from "axios";
+import {Axios} from "../axios/Axios";
 
 const SharedProtectedRoute = () => {
   const [loading, setLoading] = useState(true);
@@ -9,7 +9,7 @@ const SharedProtectedRoute = () => {
   useEffect(() => {
     const verify = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/auth/verify", {
+        const res = await Axios.get("auth/verify", {
           withCredentials: true, // important for cookies!
         });
 
