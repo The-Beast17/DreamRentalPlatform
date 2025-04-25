@@ -697,27 +697,27 @@ const AboutUs = () => {
             {/* Team Section */}
             <section className="team-section py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white">
                 <div className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-3xl lg:text-4xl font-serif font-semibold text-deep-teal mb-12">Meet the Curators</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
+                    <h2 className="text-3xl lg:text-4xl font-serif font-semibold text-deep-teal mb-12">Meet Our Team</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-10">
                         <div className="team-member text-center">
                             <img
-                                src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
+                                src="/public/images/VishalChouhan.JPG"
                                 alt="Alex Chen"
-                                className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
+                                className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover object-top mb-4 shadow-md border-4 border-white"
                             />
-                            <h3 className="text-xl font-semibold text-slate-800 mb-1">Alex Chen</h3>
-                            <p className="text-deep-teal font-medium text-sm">Co-Founder & CEO</p>
-                            <p className="text-slate-600 text-sm mt-2">Former hospitality executive with 15 years experience</p>
+                            <h3 className="text-xl font-semibold text-slate-800 mb-1">Vishal Chouhan</h3>
+                            <p className="text-deep-teal font-medium text-sm">Founder & Full Stack Developer</p>
+                            <p className="text-slate-600 text-sm mt-2">Building a platform that connects landlords and tenants with seamless, secure rental experiences</p>
                         </div>
                         <div className="team-member text-center">
                             <img
-                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
+                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
                                 alt="Maria Garcia"
                                 className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
                             />
-                            <h3 className="text-xl font-semibold text-slate-800 mb-1">Maria Garcia</h3>
-                            <p className="text-deep-teal font-medium text-sm">Co-Founder & Head of Product</p>
-                            <p className="text-slate-600 text-sm mt-2">Tech entrepreneur with passion for design</p>
+                            <h3 className="text-xl font-semibold text-slate-800 mb-1">Bablu Ahirwar</h3>
+                            <p className="text-deep-teal font-medium text-sm">Co-Founder & UI/UX Designer</p>
+                            <p className="text-slate-600 text-sm mt-2">Crafting clean and user-friendly rental experiences.</p>
                         </div>
                         <div className="team-member text-center">
                             <img
@@ -725,9 +725,19 @@ const AboutUs = () => {
                                 alt="David Miller"
                                 className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
                             />
-                            <h3 className="text-xl font-semibold text-slate-800 mb-1">David Miller</h3>
-                            <p className="text-deep-teal font-medium text-sm">Head of Partner Success</p>
-                            <p className="text-slate-600 text-sm mt-2">Former luxury hotel general manager</p>
+                            <h3 className="text-xl font-semibold text-slate-800 mb-1">Pranesh Alone</h3>
+                            <p className="text-deep-teal font-medium text-sm">Operations & Verification Lead</p>
+                            <p className="text-slate-600 text-sm mt-2">Protecting our platform with secure, reliable verification.</p>
+                        </div>
+                        <div className="team-member text-center">
+                            <img
+                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
+                                alt="David Miller"
+                                className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
+                            />
+                            <h3 className="text-xl font-semibold text-slate-800 mb-1">Sumit Bhutange</h3>
+                            <p className="text-deep-teal font-medium text-sm">Community & Support</p>
+                            <p className="text-slate-600 text-sm mt-2">Here to guide you — from property search to settling in.</p>
                         </div>
                     </div>
                 </div>
