@@ -701,9 +701,9 @@ const AboutUs = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-10">
                         <div className="team-member text-center">
                             <img
-                                src="/public/images/VishalChouhan.JPG"
-                                alt="Alex Chen"
-                                className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover object-top mb-4 shadow-md border-4 border-white"
+                                src="images/VishalChouhan.JPG"
+                                alt="Vishal Chouhan"
+                                className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white object-center"
                             />
                             <h3 className="text-xl font-semibold text-slate-800 mb-1">Vishal Chouhan</h3>
                             <p className="text-deep-teal font-medium text-sm">Founder & Full Stack Developer</p>
@@ -712,7 +712,7 @@ const AboutUs = () => {
                         <div className="team-member text-center">
                             <img
                                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
-                                alt="Maria Garcia"
+                                alt="Bablu Ahirwar"
                                 className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
                             />
                             <h3 className="text-xl font-semibold text-slate-800 mb-1">Bablu Ahirwar</h3>
@@ -722,7 +722,7 @@ const AboutUs = () => {
                         <div className="team-member text-center">
                             <img
                                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
-                                alt="David Miller"
+                                alt="Pranesh Alone"
                                 className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
                             />
                             <h3 className="text-xl font-semibold text-slate-800 mb-1">Pranesh Alone</h3>
@@ -732,7 +732,7 @@ const AboutUs = () => {
                         <div className="team-member text-center">
                             <img
                                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
-                                alt="David Miller"
+                                alt="Sumit Bhutange"
                                 className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
                             />
                             <h3 className="text-xl font-semibold text-slate-800 mb-1">Sumit Bhutange</h3>
