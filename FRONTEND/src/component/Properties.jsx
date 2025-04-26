@@ -281,8 +281,8 @@ const toggleWishlist = async (propertyId) => {
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-3">Price Range</label>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-500">${priceRange[0]}</span>
-                <span className="text-sm font-medium text-gray-500">${priceRange[1]}</span>
+                <span className="text-sm font-medium text-gray-500"> ₹ {priceRange[0]}</span>
+                <span className="text-sm font-medium text-gray-500"> ₹ {priceRange[1]}</span>
               </div>
               <div className="px-2">
                 <input
@@ -297,8 +297,8 @@ const toggleWishlist = async (propertyId) => {
               </div>
               <div className="flex justify-between mt-4 gap-3">
                 <div className="relative flex-1">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiDollarSign className="text-gray-400" />
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                    ₹ 
                   </div>
                   <input
                     type="number"
@@ -310,8 +310,8 @@ const toggleWishlist = async (propertyId) => {
                   />
                 </div>
                 <div className="relative flex-1">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiDollarSign className="text-gray-400" />
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                     ₹ 
                   </div>
                   <input
                     type="number"

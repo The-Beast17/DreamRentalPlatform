@@ -711,7 +711,7 @@ const AboutUs = () => {
                         </div>
                         <div className="team-member text-center">
                             <img
-                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
+                                src="images/babluAhirwar.jpg"
                                 alt="Bablu Ahirwar"
                                 className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
                             />
@@ -721,7 +721,7 @@ const AboutUs = () => {
                         </div>
                         <div className="team-member text-center">
                             <img
-                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
+                                src="images\praneshAlone.jpg"
                                 alt="Pranesh Alone"
                                 className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
                             />
@@ -731,7 +731,7 @@ const AboutUs = () => {
                         </div>
                         <div className="team-member text-center">
                             <img
-                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80&h=400"
+                                src="images\sumitBhutange.jpg"
                                 alt="Sumit Bhutange"
                                 className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover mb-4 shadow-md border-4 border-white"
                             />

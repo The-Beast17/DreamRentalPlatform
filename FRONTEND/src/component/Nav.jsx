@@ -94,7 +94,8 @@ const handleLogout = async () => {
     <>
     <ToastContainer />
       <nav className={`${wheel === "up" ? "up" : "down"}`}>
-        <div className='logo'>
+        <div className='logo flex items-center gap-2'>
+          <Link to="/"><img src="logo/logo.png" alt="logo" className='md:h-[35px] md:w-[35px] h-[30px]' /></Link>
           <h1>Dream-rental</h1>
         </div>
 
