@@ -156,9 +156,21 @@ const EditProperty = () => {
                                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             >
                                 <option value="">Select</option>
-                                <option value="apartment">Apartment</option>
-                                <option value="house">House</option>
-                                <option value="villa">Villa</option>
+                                <option value="Apartment">Apartment</option>
+                                <option value="House">House</option>
+                                <option value="Villa">Villa</option>
+                                <option value="Studio">Studio</option>
+                                <option value="Penthouse">Penthouse</option>
+                                <option value="Bungalow">Bungalow</option>
+                                <option value="Farmhouse">Farmhouse</option>
+                                <option value="Duplex">Duplex</option>
+                                <option value="RowHouse">Row House</option>
+                                <option value="Plot">Plot / Land</option>
+                                <option value="CommercialOffice">Commercial Office</option>
+                                <option value="Shop">Shop / Retail</option>
+                                <option value="Warehouse">Warehouse</option>
+                                <option value="CoLiving">Co-living Space</option>
+                                <option value="Pg">Paying Guest (PG)</option>
                             </select>
                         </div>
                         <div>

@@ -80,7 +80,7 @@ const CreatePost = () => {
                 seterrorMessage(err.response.data.error) :
                 seterrorMessage(JSON.stringify(err.response.data.message))
             console.log(err.response.data.message)
-        }finally {
+        } finally {
             setloading(false);
         }
     }
@@ -127,9 +127,21 @@ const CreatePost = () => {
                                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             >
                                 <option value="">Select</option>
-                                <option value="apartment">Apartment</option>
-                                <option value="house">House</option>
-                                <option value="villa">Villa</option>
+                                <option value="Apartment">Apartment</option>
+                                <option value="House">House</option>
+                                <option value="Villa">Villa</option>
+                                <option value="Studio">Studio</option>
+                                <option value="Penthouse">Penthouse</option>
+                                <option value="Bungalow">Bungalow</option>
+                                <option value="Farmhouse">Farmhouse</option>
+                                <option value="Duplex">Duplex</option>
+                                <option value="RowHouse">Row House</option>
+                                <option value="Plot">Plot / Land</option>
+                                <option value="CommercialOffice">Commercial Office</option>
+                                <option value="Shop">Shop / Retail</option>
+                                <option value="Warehouse">Warehouse</option>
+                                <option value="CoLiving">Co-living Space</option>
+                                <option value="Pg">Paying Guest (PG)</option>
                             </select>
                         </div>
                         <div>
@@ -191,22 +203,22 @@ const CreatePost = () => {
                                 value={state}
                                 name='State'
                                 onChange={(e) => {
-                                     setstate(e.target.value),
-                                     setcity("") // Reset city when state changes
+                                    setstate(e.target.value),
+                                        setcity("") // Reset city when state changes
                                 }}
                                 required
                                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             >
                                 <option value="">State</option>
-                               {Object.keys(statesAndCities).map((stateName, idx) => (
-                                                                  <option key={idx} value={stateName}>
-                                                                      {stateName}
-                                                                  </option>
-                                                              ))}
+                                {Object.keys(statesAndCities).map((stateName, idx) => (
+                                    <option key={idx} value={stateName}>
+                                        {stateName}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                         <div className="w-1/2">
-                        <label
+                            <label
                                 htmlFor="City"
                                 className="block text-sm font-medium text-gray-700"
                             >
@@ -226,7 +238,7 @@ const CreatePost = () => {
                                             {cityName}
                                         </option>
                                     ))}
-                                    {!state && <option value="">Select State First</option>}
+                                {!state && <option value="">Select State First</option>}
                             </select>
                         </div>
                     </div>
@@ -391,7 +403,7 @@ const CreatePost = () => {
                         className="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center"
                         disabled={loading}
                     >
-                       {loading ? (
+                        {loading ? (
                             <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
